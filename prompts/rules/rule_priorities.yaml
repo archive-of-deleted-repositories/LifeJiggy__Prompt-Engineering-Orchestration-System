@@ -1,0 +1,72 @@
+# Rule Priorities - Conflict Resolution
+
+## Priority Levels
+
+### Level 1: Safety (Priority 100)
+- Safety rules always take precedence
+- No other rule can override safety
+- Example: Harmful content is always rejected
+
+### Level 2: Legal (Priority 90)
+- Legal compliance rules
+- Overrides most other considerations
+- Example: Copyright violations are flagged
+
+### Level 3: Security (Priority 80)
+- Security-focused rules
+- Protects system and users
+- Example: Dangerous operations are logged/warned
+
+### Level 4: Quality (Priority 70)
+- Code quality rules
+- Can be relaxed for quick prototypes
+- Example: Type hints may be skipped for scripts
+
+### Level 5: Style (Priority 60)
+- Coding style preferences
+- Lowest priority for conflicts
+- Example: Linting rules can be customized
+
+## Conflict Resolution Examples
+
+### Conflict: Safety vs. User Request
+- **Scenario**: User asks for harmful code
+- **Resolution**: Safety rule wins, request is rejected
+- **Reason**: User safety is paramount
+
+### Conflict: Security vs. Convenience
+- **Scenario**: User wants to skip input validation
+- **Resolution**: Security rule wins, validation included
+- **Reason**: Production code must be secure
+
+### Conflict: Style vs. Deadline
+- **Scenario**: Quick script needed, style rules slow development
+- **Resolution**: Style priority lowered, basic patterns used
+- **Reason**: Context-dependent prioritization
+
+### Conflict: Expert vs. Beginner
+- **Scenario**: Same query from different user levels
+- **Resolution**: Conditional rules apply based on context
+- **Reason**: Personalized response is better
+
+## Priority Configuration
+
+```yaml
+rule_priorities:
+  safety: 100
+  legal: 90
+  security: 80
+  quality: 70
+  style: 60
+  default: 50
+```
+
+## Custom Priority Assignment
+
+New rules can be assigned priorities:
+```python
+def create_rule(name: str, priority: int, condition: callable):
+    if priority < 50:
+        raise ValueError("Minimum priority is 50")
+    return Rule(name, priority, condition)
+```

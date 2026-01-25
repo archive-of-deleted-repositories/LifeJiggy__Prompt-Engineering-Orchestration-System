@@ -1,0 +1,38 @@
+version: '1.0'
+name: coding-skill-tests
+description: Unit tests for coding skill
+
+tests:
+  - name: binary_search
+    input: "Implement binary search in Python"
+    expected_properties:
+      - function_exists
+      - handles_empty_list
+      - handles_single_element
+      - finds_existing_element
+      - returns_negative_for_missing
+    
+  - name: string_operations
+    input: "Write a function to check if a string is a palindrome"
+    expected_properties:
+      - handles_palindromes
+      - handles_non_palindromes
+      - handles_empty_string
+      - case_insensitive
+    
+  - name: data_structures
+    input: "Implement a stack data structure with push, pop, and peek operations"
+    expected_properties:
+      - push_works
+      - pop_works
+      - peek_works
+      - empty_check
+      - overflow_handling
+
+  - name: api_endpoint
+    input: "Create a REST API endpoint for creating users in Node.js/Express"
+    expected_properties:
+      - route_defined
+      - input_validation
+      - error_handling
+      - success_response

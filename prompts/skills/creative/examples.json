@@ -1,0 +1,19 @@
+{
+  "examples": [
+    {
+      "input": "Write a blog post about renewable energy",
+      "output": "Comprehensive article with statistics and future outlook",
+      "style": "informative"
+    },
+    {
+      "input": "Create a Twitter thread about product launch",
+      "output": "5-tweet thread with engaging hooks and CTA",
+      "style": "casual"
+    },
+    {
+      "input": "Write a short story about time travel",
+      "output": "Creative fiction with engaging narrative",
+      "style": "creative"
+    }
+  ]
+}

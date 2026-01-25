@@ -1,0 +1,178 @@
+environments:
+  development:
+    name: development
+    description: Local development environment
+    debug_mode: true
+    log_level: DEBUG
+    api_keys:
+      openai: ${OPENAI_API_KEY}
+      anthropic: ${ANTHROPIC_API_KEY}
+      google: ${GOOGLE_API_KEY}
+    vector_database:
+      type: chroma
+      persistence_path: ./data/chroma
+      host: localhost
+      port: 8000
+    mcp_servers:
+      filesystem:
+        enabled: true
+        root_path: ./
+      database:
+        enabled: false
+      github:
+        enabled: false
+      slack:
+        enabled: false
+      google_drive:
+        enabled: false
+    model_defaults:
+      provider: openai
+      model: gpt-3.5-turbo
+      temperature: 0.7
+    rate_limits:
+      requests_per_minute: 60
+      tokens_per_minute: 100000
+    cache:
+      enabled: true
+      ttl: 3600
+      max_size: 1000
+    metrics:
+      enabled: true
+      export_interval: 60
+    cors:
+      enabled: true
+      origins:
+        - http://localhost:3000
+        - http://localhost:8000
+
+  staging:
+    name: staging
+    description: Pre-production testing environment
+    debug_mode: false
+    log_level: INFO
+    api_keys:
+      openai: ${OPENAI_API_KEY}
+      anthropic: ${ANTHROPIC_API_KEY}
+      google: ${GOOGLE_API_KEY}
+    vector_database:
+      type: weaviate
+      host: weaviate.staging.svc.cluster.local
+      port: 8080
+      api_key: ${WEAVIATE_API_KEY}
+    mcp_servers:
+      filesystem:
+        enabled: true
+        root_path: /app/data
+      database:
+        enabled: true
+        connection_string: ${STAGING_DB_CONNECTION}
+      github:
+        enabled: true
+        token: ${GITHUB_TOKEN}
+      slack:
+        enabled: true
+        token: ${SLACK_TOKEN}
+      google_drive:
+        enabled: false
+    model_defaults:
+      provider: openai
+      model: gpt-4
+      temperature: 0.5
+    rate_limits:
+      requests_per_minute: 600
+      tokens_per_minute: 1000000
+    cache:
+      enabled: true
+      ttl: 7200
+      max_size: 10000
+    metrics:
+      enabled: true
+      export_interval: 30
+    cors:
+      enabled: true
+      origins:
+        - https://staging.example.com
+
+  production:
+    name: production
+    description: Production environment
+    debug_mode: false
+    log_level: WARNING
+    api_keys:
+      openai: ${OPENAI_API_KEY}
+      anthropic: ${ANTHROPIC_API_KEY}
+      google: ${GOOGLE_API_KEY}
+    vector_database:
+      type: weaviate
+      host: weaviate.production.svc.cluster.local
+      port: 443
+      api_key: ${WEAVIATE_API_KEY}
+      grpc_host: weaviate.production.svc.cluster.local
+      grpc_port: 50051
+      ssl: true
+    mcp_servers:
+      filesystem:
+        enabled: true
+        root_path: /app/data
+        read_only: true
+      database:
+        enabled: true
+        connection_string: ${PRODUCTION_DB_CONNECTION}
+        pool_size: 10
+      github:
+        enabled: true
+        token: ${GITHUB_TOKEN}
+        organization_whitelist:
+          - my-org
+      slack:
+        enabled: true
+        token: ${SLACK_TOKEN}
+        channel_restrictions:
+          - general
+          - ai-updates
+      google_drive:
+        enabled: true
+        credentials: ${GOOGLE_DRIVE_CREDENTIALS}
+        domain_restriction: example.com
+    model_defaults:
+      provider: openai
+      model: gpt-4-turbo
+      temperature: 0.5
+      fallback: gpt-4
+    rate_limits:
+      requests_per_minute: 3000
+      tokens_per_minute: 5000000
+    cache:
+      enabled: true
+      ttl: 3600
+      max_size: 50000
+      distributed: true
+      redis_host: redis.production.svc.cluster.local
+      redis_port: 6379
+    metrics:
+      enabled: true
+      export_interval: 15
+      export_to_prometheus: true
+    cors:
+      enabled: true
+      origins:
+        - https://app.example.com
+        - https://api.example.com
+    security:
+      jwt_secret: ${JWT_SECRET}
+      encryption_key: ${ENCRYPTION_KEY}
+      audit_logging: true
+      ip_whitelist:
+        - 10.0.0.0/8
+        - 172.16.0.0/12
+        - 192.168.0.0/16
+
+current: development
+
+environment_switching:
+  allowed_environments:
+    - development
+    - staging
+    - production
+  require_restart: true
+  hot_reload_config: false

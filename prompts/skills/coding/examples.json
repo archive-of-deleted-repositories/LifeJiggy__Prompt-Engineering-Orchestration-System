@@ -1,0 +1,19 @@
+{
+  "examples": [
+    {
+      "input": "Write a function to reverse a string",
+      "output": "def reverse_string(s):\\n    return s[::-1]",
+      "language": "python"
+    },
+    {
+      "input": "Implement a linked list in Java",
+      "output": "public class LinkedList { ... }",
+      "language": "java"
+    },
+    {
+      "input": "Create a React component for a button",
+      "output": "const Button = ({ children, ...props }) => { ... }",
+      "language": "javascript"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "examples": [
+    {
+      "input": "Calculate the mean and standard deviation of this dataset",
+      "output": "mean: 45.2, std: 12.3",
+      "type": "statistical"
+    },
+    {
+      "input": "Identify trends in monthly sales",
+      "output": "Upward trend starting August, 15% growth",
+      "type": "trend_analysis"
+    },
+    {
+      "input": "Find outliers in this data",
+      "output": "3 outliers detected at indices 5, 12, 23",
+      "type": "anomaly_detection"
+    }
+  ]
+}
